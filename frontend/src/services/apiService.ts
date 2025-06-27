@@ -1,7 +1,8 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 
 // Base API configuration
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
 
 // Create axios instance
 const apiClient: AxiosInstance = axios.create({
@@ -42,170 +43,194 @@ apiClient.interceptors.response.use(
 );
 
 // API Service Methods
-export class ApiService {
+const ApiService = {
   // Authentication
-  static async login(credentials: { email: string; password: string }) {
-    const response = await apiClient.post('/auth/login', credentials);
-    return response.data;
-  }
+  login: async (credentials: { email: string; password: string }) => {
+    // MOCK: Remove/comment this block when backend is ready
+    await new Promise((res) => setTimeout(res, 500)); // Simulate network delay
+    if (
+      credentials.email === 'user@example.com' &&
+      credentials.password === 'password'
+    ) {
+      return {
+        token: 'mocked-jwt-token',
+        user: {
+          id: '1',
+          email: 'user@example.com',
+          name: 'John Doe',
+          role: 'admin',
+        },
+      };
+    }
+    throw new Error('Invalid credentials');
 
-  static async logout() {
-    const response = await apiClient.post('/auth/logout');
-    return response.data;
-  }
+    // REAL: Uncomment this when backend is ready
+    // const response = await apiClient.post('/auth/login', credentials);
+    // return response.data;
+  },
+
+  logout: async () => {
+    // MOCK: Remove/comment this block when backend is ready
+    await new Promise((res) => setTimeout(res, 300)); // Simulate network delay
+    return { success: true };
+
+    // REAL: Uncomment this when backend is ready
+    // const response = await apiClient.post('/auth/logout');
+    // return response.data;
+  },
 
   // Dashboard
-  static async getDashboardOverview() {
+  async getDashboardOverview() {
     const response = await apiClient.get('/reporting/overview');
     return response.data;
-  }
+  },
 
   // Products
-  static async getProducts(params?: any) {
+  async getProducts(params?: any) {
     const response = await apiClient.get('/products', { params });
     return response.data;
-  }
+  },
 
-  static async getProduct(id: string) {
+  async getProduct(id: string) {
     const response = await apiClient.get(`/products/${id}`);
     return response.data;
-  }
+  },
 
-  static async createProduct(productData: any) {
+  async createProduct(productData: any) {
     const response = await apiClient.post('/products', productData);
     return response.data;
-  }
+  },
 
-  static async updateProduct(id: string, productData: any) {
+  async updateProduct(id: string, productData: any) {
     const response = await apiClient.put(`/products/${id}`, productData);
     return response.data;
-  }
+  },
 
-  static async deleteProduct(id: string) {
+  async deleteProduct(id: string) {
     const response = await apiClient.delete(`/products/${id}`);
     return response.data;
-  }
+  },
 
   // Suppliers
-  static async getSuppliers(params?: any) {
+  async getSuppliers(params?: any) {
     const response = await apiClient.get('/suppliers', { params });
     return response.data;
-  }
+  },
 
-  static async getSupplier(id: string) {
+  async getSupplier(id: string) {
     const response = await apiClient.get(`/suppliers/${id}`);
     return response.data;
-  }
+  },
 
-  static async createSupplier(supplierData: any) {
+  async createSupplier(supplierData: any) {
     const response = await apiClient.post('/suppliers', supplierData);
     return response.data;
-  }
+  },
 
-  static async updateSupplier(id: string, supplierData: any) {
+  async updateSupplier(id: string, supplierData: any) {
     const response = await apiClient.put(`/suppliers/${id}`, supplierData);
     return response.data;
-  }
+  },
 
-  static async deleteSupplier(id: string) {
+  async deleteSupplier(id: string) {
     const response = await apiClient.delete(`/suppliers/${id}`);
     return response.data;
-  }
+  },
 
   // Purchase Orders
-  static async getPurchaseOrders(params?: any) {
+  async getPurchaseOrders(params?: any) {
     const response = await apiClient.get('/purchase-orders', { params });
     return response.data;
-  }
+  },
 
-  static async getPurchaseOrder(id: string) {
+  async getPurchaseOrder(id: string) {
     const response = await apiClient.get(`/purchase-orders/${id}`);
     return response.data;
-  }
+  },
 
-  static async createPurchaseOrder(orderData: any) {
+  async createPurchaseOrder(orderData: any) {
     const response = await apiClient.post('/purchase-orders', orderData);
     return response.data;
-  }
+  },
 
-  static async updatePurchaseOrder(id: string, orderData: any) {
+  async updatePurchaseOrder(id: string, orderData: any) {
     const response = await apiClient.put(`/purchase-orders/${id}`, orderData);
     return response.data;
-  }
+  },
 
-  static async deletePurchaseOrder(id: string) {
+  async deletePurchaseOrder(id: string) {
     const response = await apiClient.delete(`/purchase-orders/${id}`);
     return response.data;
-  }
+  },
 
   // Sales Orders
-  static async getSalesOrders(params?: any) {
+  async getSalesOrders(params?: any) {
     const response = await apiClient.get('/sales-orders', { params });
     return response.data;
-  }
+  },
 
-  static async getSalesOrder(id: string) {
+  async getSalesOrder(id: string) {
     const response = await apiClient.get(`/sales-orders/${id}`);
     return response.data;
-  }
+  },
 
-  static async createSalesOrder(orderData: any) {
+  async createSalesOrder(orderData: any) {
     const response = await apiClient.post('/sales-orders', orderData);
     return response.data;
-  }
+  },
 
-  static async updateSalesOrder(id: string, orderData: any) {
+  async updateSalesOrder(id: string, orderData: any) {
     const response = await apiClient.put(`/sales-orders/${id}`, orderData);
     return response.data;
-  }
+  },
 
-  static async deleteSalesOrder(id: string) {
+  async deleteSalesOrder(id: string) {
     const response = await apiClient.delete(`/sales-orders/${id}`);
     return response.data;
-  }
+  },
 
   // Warehouse
-  static async getInventory(params?: any) {
+  async getInventory(params?: any) {
     const response = await apiClient.get('/warehouse/inventory', { params });
     return response.data;
-  }
+  },
 
-  static async getStockMovements(params?: any) {
+  async getStockMovements(params?: any) {
     const response = await apiClient.get('/warehouse/movements', { params });
     return response.data;
-  }
+  },
 
   // Shipments
-  static async getShipments(params?: any) {
+  async getShipments(params?: any) {
     const response = await apiClient.get('/shipments', { params });
     return response.data;
-  }
+  },
 
-  static async getShipment(id: string) {
+  async getShipment(id: string) {
     const response = await apiClient.get(`/shipments/${id}`);
     return response.data;
-  }
+  },
 
-  static async createShipment(shipmentData: any) {
+  async createShipment(shipmentData: any) {
     const response = await apiClient.post('/shipments', shipmentData);
     return response.data;
-  }
+  },
 
-  static async updateShipment(id: string, shipmentData: any) {
+  async updateShipment(id: string, shipmentData: any) {
     const response = await apiClient.put(`/shipments/${id}`, shipmentData);
     return response.data;
-  }
+  },
 
-  static async deleteShipment(id: string) {
+  async deleteShipment(id: string) {
     const response = await apiClient.delete(`/shipments/${id}`);
     return response.data;
-  }
+  },
 
   // Reports
-  static async getReports(type: string, params?: any) {
+  async getReports(type: string, params?: any) {
     const response = await apiClient.get(`/reports/${type}`, { params });
     return response.data;
-  }
-}
+  },
+};
 
 export default ApiService;

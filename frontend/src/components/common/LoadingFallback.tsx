@@ -1,12 +1,9 @@
 import React from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { LoadingFallbackProps } from '../../interfaces/common/LoadingFallbackProps';
 
-interface LoadingFallbackProps {
-  message?: string;
-}
-
-const LoadingFallback: React.FC<LoadingFallbackProps> = ({ 
-  message = 'Loading...' 
+const LoadingFallback: React.FC<LoadingFallbackProps> = ({
+  message = 'Loading...',
 }) => {
   return (
     <Box
@@ -20,7 +17,7 @@ const LoadingFallback: React.FC<LoadingFallbackProps> = ({
       }}
     >
       <CircularProgress size={60} thickness={4} />
-      <Typography variant="body1" color="text.secondary">
+      <Typography variant='body1' color='text.secondary'>
         {message}
       </Typography>
     </Box>

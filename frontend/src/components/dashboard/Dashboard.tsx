@@ -22,48 +22,58 @@ import {
 import { useDashboard } from '../../hooks/queries/useDashboard';
 import { GLOBAL_CONSTANTS } from '../../constants/globalConstants';
 import LoadingFallback from '../common/LoadingFallback';
+import { MetricCardProps } from '../../interfaces/dashboard/MetricCardProps';
 
-interface MetricCardProps {
-  title: string;
-  value: number;
-  icon: React.ReactNode;
-  color: string;
-}
-
-const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon, color }) => (
-  <Card sx={{ height: '100%', transition: 'transform 0.2s', '&:hover': { transform: 'translateY(-4px)' }}}>
+const MetricCard: React.FC<MetricCardProps> = ({
+  title,
+  value,
+  icon,
+  color,
+}) => (
+  <Card
+    sx={{
+      height: '100%',
+      transition: 'transform 0.2s',
+      '&:hover': { transform: 'translateY(-4px)' },
+    }}
+  >
     <CardContent>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <Box>
-          <Typography color="text.secondary" gutterBottom variant="h6">
+          <Typography color='text.secondary' gutterBottom variant='h6'>
             {title}
           </Typography>
-          <Typography variant="h4" component="div" fontWeight="bold">
+          <Typography variant='h4' component='div' fontWeight='bold'>
             {value.toLocaleString()}
           </Typography>
         </Box>
-        <Box sx={{ color, fontSize: 48 }}>
-          {icon}
-        </Box>
+        <Box sx={{ color, fontSize: 48 }}>{icon}</Box>
       </Box>
     </CardContent>
   </Card>
 );
 
 const Dashboard: React.FC = () => {
-  const { metrics, recentActivities, isLoading, error, refetch } = useDashboard();
+  const { metrics, recentActivities, isLoading, error, refetch } =
+    useDashboard();
 
   if (isLoading) {
-    return <LoadingFallback message="Loading dashboard..." />;
+    return <LoadingFallback message='Loading dashboard...' />;
   }
 
   if (error) {
     return (
-      <Alert 
-        severity="error" 
+      <Alert
+        severity='error'
         sx={{ mb: 2 }}
         action={
-          <Button color="inherit" size="small" onClick={() => refetch()}>
+          <Button color='inherit' size='small' onClick={() => refetch()}>
             Retry
           </Button>
         }
@@ -75,11 +85,11 @@ const Dashboard: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
+      <Typography variant='h4' component='h1' gutterBottom fontWeight='bold'>
         {GLOBAL_CONSTANTS.DASHBOARD.TITLE}
       </Typography>
-      
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+
+      <Typography variant='body1' color='text.secondary' sx={{ mb: 3 }}>
         {GLOBAL_CONSTANTS.DASHBOARD.OVERVIEW}
       </Typography>
 
@@ -89,7 +99,7 @@ const Dashboard: React.FC = () => {
             title={GLOBAL_CONSTANTS.DASHBOARD.TOTAL_PRODUCTS}
             value={metrics?.totalProducts || 0}
             icon={<Inventory />}
-            color="#1976d2"
+            color='#1976d2'
           />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
@@ -97,7 +107,7 @@ const Dashboard: React.FC = () => {
             title={GLOBAL_CONSTANTS.DASHBOARD.ACTIVE_SUPPLIERS}
             value={metrics?.activeSuppliers || 0}
             icon={<People />}
-            color="#2e7d32"
+            color='#2e7d32'
           />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
@@ -105,7 +115,7 @@ const Dashboard: React.FC = () => {
             title={GLOBAL_CONSTANTS.DASHBOARD.PENDING_ORDERS}
             value={metrics?.pendingOrders || 0}
             icon={<ShoppingCart />}
-            color="#ed6c02"
+            color='#ed6c02'
           />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
@@ -113,7 +123,7 @@ const Dashboard: React.FC = () => {
             title={GLOBAL_CONSTANTS.DASHBOARD.LOW_STOCK_ITEMS}
             value={metrics?.lowStockItems || 0}
             icon={<Warning />}
-            color="#d32f2f"
+            color='#d32f2f'
           />
         </Grid>
       </Grid>
@@ -121,28 +131,28 @@ const Dashboard: React.FC = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <Paper sx={{ p: 3, height: '400px' }}>
-            <Typography variant="h6" gutterBottom fontWeight="bold">
+            <Typography variant='h6' gutterBottom fontWeight='bold'>
               Inventory Overview
             </Typography>
-            <Box 
-              sx={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 height: '300px',
-                color: 'text.secondary' 
+                color: 'text.secondary',
               }}
             >
-              <Typography variant="body1">
+              <Typography variant='body1'>
                 Chart visualization would be implemented here
               </Typography>
             </Box>
           </Paper>
         </Grid>
-        
+
         <Grid item xs={12} md={4}>
           <Paper sx={{ p: 3, height: '400px' }}>
-            <Typography variant="h6" gutterBottom fontWeight="bold">
+            <Typography variant='h6' gutterBottom fontWeight='bold'>
               {GLOBAL_CONSTANTS.DASHBOARD.RECENT_ACTIVITIES}
             </Typography>
             <List dense sx={{ maxHeight: '300px', overflow: 'auto' }}>
@@ -162,22 +172,22 @@ const Dashboard: React.FC = () => {
       </Grid>
 
       <Box sx={{ mt: 3 }}>
-        <Typography variant="h6" gutterBottom fontWeight="bold">
+        <Typography variant='h6' gutterBottom fontWeight='bold'>
           {GLOBAL_CONSTANTS.DASHBOARD.QUICK_ACTIONS}
         </Typography>
         <Grid container spacing={2}>
           <Grid item>
-            <Button variant="contained" startIcon={<Inventory />}>
+            <Button variant='contained' startIcon={<Inventory />}>
               Add Product
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="outlined" startIcon={<ShoppingCart />}>
+            <Button variant='outlined' startIcon={<ShoppingCart />}>
               Create Purchase Order
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="outlined" startIcon={<TrendingUp />}>
+            <Button variant='outlined' startIcon={<TrendingUp />}>
               View Reports
             </Button>
           </Grid>

@@ -38,53 +38,10 @@ import { navigationHelpers } from '../../routes';
 
 const drawerWidth = 280;
 
-const menuItems = [
-  { 
-    text: GLOBAL_CONSTANTS.NAVIGATION.DASHBOARD, 
-    icon: <Dashboard />, 
-    path: navigationHelpers.goToDashboard()
-  },
-  { 
-    text: GLOBAL_CONSTANTS.NAVIGATION.PRODUCTS, 
-    icon: <Inventory />, 
-    path: navigationHelpers.goToProducts()
-  },
-  { 
-    text: GLOBAL_CONSTANTS.NAVIGATION.SUPPLIERS, 
-    icon: <Business />, 
-    path: navigationHelpers.goToSuppliers()
-  },
-  { 
-    text: GLOBAL_CONSTANTS.NAVIGATION.PURCHASE_ORDERS, 
-    icon: <ShoppingCart />, 
-    path: navigationHelpers.goToPurchaseOrders()
-  },
-  { 
-    text: GLOBAL_CONSTANTS.NAVIGATION.SALES_ORDERS, 
-    icon: <Sell />, 
-    path: navigationHelpers.goToSalesOrders()
-  },
-  { 
-    text: GLOBAL_CONSTANTS.NAVIGATION.WAREHOUSE, 
-    icon: <Warehouse />, 
-    path: navigationHelpers.goToWarehouse()
-  },
-  { 
-    text: GLOBAL_CONSTANTS.NAVIGATION.SHIPMENTS, 
-    icon: <LocalShipping />, 
-    path: navigationHelpers.goToShipments()
-  },
-  { 
-    text: GLOBAL_CONSTANTS.NAVIGATION.REPORTS, 
-    icon: <Assessment />, 
-    path: navigationHelpers.goToReports()
-  },
-];
-
 const Layout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const navigate = useNavigate();
@@ -108,10 +65,53 @@ const Layout: React.FC = () => {
     handleMenuClose();
   };
 
+  const menuItems = [
+    {
+      text: GLOBAL_CONSTANTS.NAVIGATION.DASHBOARD,
+      icon: <Dashboard />,
+      path: navigationHelpers.goToDashboard(),
+    },
+    {
+      text: GLOBAL_CONSTANTS.NAVIGATION.PRODUCTS,
+      icon: <Inventory />,
+      path: navigationHelpers.goToProducts(),
+    },
+    {
+      text: GLOBAL_CONSTANTS.NAVIGATION.SUPPLIERS,
+      icon: <Business />,
+      path: navigationHelpers.goToSuppliers(),
+    },
+    {
+      text: GLOBAL_CONSTANTS.NAVIGATION.PURCHASE_ORDERS,
+      icon: <ShoppingCart />,
+      path: navigationHelpers.goToPurchaseOrders(),
+    },
+    {
+      text: GLOBAL_CONSTANTS.NAVIGATION.SALES_ORDERS,
+      icon: <Sell />,
+      path: navigationHelpers.goToSalesOrders(),
+    },
+    {
+      text: GLOBAL_CONSTANTS.NAVIGATION.WAREHOUSE,
+      icon: <Warehouse />,
+      path: navigationHelpers.goToWarehouse(),
+    },
+    {
+      text: GLOBAL_CONSTANTS.NAVIGATION.SHIPMENTS,
+      icon: <LocalShipping />,
+      path: navigationHelpers.goToShipments(),
+    },
+    {
+      text: GLOBAL_CONSTANTS.NAVIGATION.REPORTS,
+      icon: <Assessment />,
+      path: navigationHelpers.goToReports(),
+    },
+  ];
+
   const drawer = (
     <Box>
       <Toolbar>
-        <Typography variant="h6" noWrap component="div" fontWeight="bold">
+        <Typography variant='h6' noWrap component='div' fontWeight='bold'>
           {GLOBAL_CONSTANTS.APP_NAME}
         </Typography>
       </Toolbar>
@@ -154,7 +154,7 @@ const Layout: React.FC = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
-        position="fixed"
+        position='fixed'
         sx={{
           width: { lg: `calc(100% - ${drawerWidth}px)` },
           ml: { lg: `${drawerWidth}px` },
@@ -162,33 +162,33 @@ const Layout: React.FC = () => {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
+            color='inherit'
+            aria-label='open drawer'
+            edge='start'
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { lg: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
-          
+
           <Box sx={{ flexGrow: 1 }} />
-          
+
           <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
+            size='large'
+            edge='end'
+            aria-label='account of current user'
+            aria-controls='menu-appbar'
+            aria-haspopup='true'
             onClick={handleMenuClick}
-            color="inherit"
+            color='inherit'
           >
             <Avatar sx={{ width: 32, height: 32 }}>
               <AccountCircle />
             </Avatar>
           </IconButton>
-          
+
           <Menu
-            id="menu-appbar"
+            id='menu-appbar'
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: 'top',
@@ -204,23 +204,23 @@ const Layout: React.FC = () => {
           >
             <MenuItem onClick={handleMenuClose}>
               <ListItemIcon>
-                <AccountCircle fontSize="small" />
+                <AccountCircle fontSize='small' />
               </ListItemIcon>
               {user?.name || user?.email}
             </MenuItem>
             <Divider />
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
-                <Logout fontSize="small" />
+                <Logout fontSize='small' />
               </ListItemIcon>
               {GLOBAL_CONSTANTS.AUTH.LOGOUT_BUTTON}
             </MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
-      
+
       <Box
-        component="nav"
+        component='nav'
         sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
       >
         <Drawer
@@ -242,9 +242,9 @@ const Layout: React.FC = () => {
           {drawer}
         </Drawer>
       </Box>
-      
+
       <Box
-        component="main"
+        component='main'
         sx={{
           flexGrow: 1,
           p: 3,

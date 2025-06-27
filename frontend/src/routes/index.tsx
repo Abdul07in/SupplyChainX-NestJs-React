@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import Layout from '../components/layout/Layout';
-import Login from '../components/auth/Login';
-import Dashboard from '../components/dashboard/Dashboard';
-import Products from '../components/products/Products';
-import Suppliers from '../components/suppliers/Suppliers';
-import PurchaseOrders from '../components/purchase-orders/PurchaseOrders';
-import SalesOrders from '../components/sales-orders/SalesOrders';
-import Warehouse from '../components/warehouse/Warehouse';
-import Shipments from '../components/shipments/Shipments';
-import Reports from '../components/reports/Reports';
-import NotFound from '../pages/NotFound';
 import ProtectedRoute from '../components/common/ProtectedRoute';
 import ErrorFallback from '../components/common/ErrorFallback';
 import LoadingFallback from '../components/common/LoadingFallback';
+
+// Lazy-loaded components
+const Login = lazy(() => import('../components/auth/Login'));
+const Dashboard = lazy(() => import('../components/dashboard/Dashboard'));
+const Products = lazy(() => import('../components/products/Products'));
+const Suppliers = lazy(() => import('../components/suppliers/Suppliers'));
+const PurchaseOrders = lazy(() => import('../components/purchase-orders/PurchaseOrders'));
+const SalesOrders = lazy(() => import('../components/sales-orders/SalesOrders'));
+const Warehouse = lazy(() => import('../components/warehouse/Warehouse'));
+const Shipments = lazy(() => import('../components/shipments/Shipments'));
+const Reports = lazy(() => import('../components/reports/Reports'));
+const NotFound = lazy(() => import('../pages/NotFound'));
 
 // Route configuration
 export const routeConfig = {
@@ -59,16 +61,16 @@ export const routeConfig = {
 } as const;
 
 // Route component wrapper with error boundary
-const RouteWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+const RouteWrapper: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
   <ErrorBoundary
     FallbackComponent={ErrorFallback}
     onError={(error, errorInfo) => {
       console.error('Route Error:', error, errorInfo);
     }}
   >
-    <React.Suspense fallback={<LoadingFallback />}>
-      {children}
-    </React.Suspense>
+    <React.Suspense fallback={<LoadingFallback />}>{children}</React.Suspense>
   </ErrorBoundary>
 );
 
@@ -172,18 +174,23 @@ export const router = createBrowserRouter([
 
 // Navigation helpers
 export const navigationHelpers = {
+  goToLogin: () => routeConfig.auth.login,
   goToDashboard: () => routeConfig.dashboard.root,
   goToProducts: () => routeConfig.products.root,
-  goToProductDetail: (id: string) => routeConfig.products.detail.replace(':id', id),
+  goToProductDetail: (id: string) =>
+    routeConfig.products.detail.replace(':id', id),
   goToSuppliers: () => routeConfig.suppliers.root,
-  goToSupplierDetail: (id: string) => routeConfig.suppliers.detail.replace(':id', id),
+  goToSupplierDetail: (id: string) =>
+    routeConfig.suppliers.detail.replace(':id', id),
   goToPurchaseOrders: () => routeConfig.purchaseOrders.root,
-  goToPurchaseOrderDetail: (id: string) => routeConfig.purchaseOrders.detail.replace(':id', id),
+  goToPurchaseOrderDetail: (id: string) =>
+    routeConfig.purchaseOrders.detail.replace(':id', id),
   goToSalesOrders: () => routeConfig.salesOrders.root,
-  goToSalesOrderDetail: (id: string) => routeConfig.salesOrders.detail.replace(':id', id),
+  goToSalesOrderDetail: (id: string) =>
+    routeConfig.salesOrders.detail.replace(':id', id),
   goToWarehouse: () => routeConfig.warehouse.root,
   goToShipments: () => routeConfig.shipments.root,
-  goToShipmentDetail: (id: string) => routeConfig.shipments.detail.replace(':id', id),
+  goToShipmentDetail: (id: string) =>
+    routeConfig.shipments.detail.replace(':id', id),
   goToReports: () => routeConfig.reports.root,
-  goToLogin: () => routeConfig.auth.login,
 };
